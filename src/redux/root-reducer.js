@@ -4,7 +4,6 @@ import statsReducer from './stats/stats.reducer'
 
 export default combineReducers({
     user:userReducer,
-    sum:statsReducer,
-    mean:statsReducer,
-    quantity:statsReducer
+    stat:statsReducer,
+    
 })

@@ -25,7 +25,7 @@ container:{
 }));
 
 const App = (props) => {
-  const currentUser = 'Admin';
+  const currentUser = 'Amin';
   const classes = useStyles();
   apiClient.saveItems('items', DATA.items);
   const [items, setItems] = React.useState(apiClient.loadItems('items'));

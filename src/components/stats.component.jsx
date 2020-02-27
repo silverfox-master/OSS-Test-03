@@ -41,9 +41,9 @@ const Stats = props => {
 
 const mapStateToProps = ({
                       user:{currentUser},
-                      sum:{currentSum}, 
-                      mean:{currentMean},
-                      quantity:{currentQuantity}
+                      stat:{currentSum}, 
+                      stat:{currentMean},
+                      stat:{currentQuantity}
                     }) =>({
   currentUser,
   currentSum,
