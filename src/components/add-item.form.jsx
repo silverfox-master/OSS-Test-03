@@ -4,6 +4,9 @@ import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Button from '@material-ui/core/Button'
+import uuid from 'uuid/v1'
+import { connect } from 'react-redux'
+import { addItem } from './../redux/items/items.actions'
 
 
 class AddItems extends React.Component{
@@ -18,9 +21,15 @@ class AddItems extends React.Component{
     }
     handleSubmit = (event) =>{
         event.preventDefault()
-        const {title,description, price} = this.state;
-
-        this.props.onSubmit(title,description, price)
+        
+        const newItem = {
+            id:uuid(),
+            imageUrl:'',
+            title:this.state.title,
+            description:this.state.description,
+            price:parseFloat(this.state.price)
+        }
+        this.props.addItemToList(newItem)
         this.setState({title: '', description: '', price: 0})
 
     }
@@ -97,7 +106,12 @@ class AddItems extends React.Component{
         )
     }
 }
+const mapDispatchToProps = dispatch =>({
+    addItemToList: item => dispatch(addItem(item))
+  })
+  
+export default connect(null,mapDispatchToProps)(AddItems);
 
-export default AddItems;
+
 
 

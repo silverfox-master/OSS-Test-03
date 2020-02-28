@@ -7,7 +7,9 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import CardHeader from '@material-ui/core/CardHeader';
-import IconButton from '@material-ui/core/IconButton';
+
+
+import {deleteItem} from './../redux/items/items.actions'
 
 const useStyles = makeStyles({
   root: {
@@ -16,43 +18,44 @@ const useStyles = makeStyles({
   },
   media: {
     height: 160,
+  },
+  hovIcon: {
+    cursor: 'pointer'
   }
 })
 
-const Product = props =>{
+const Product = ({currentUser,delItem,product}) =>{
   const classes = useStyles();
-  const handleDel = () => {
-        props.onDelete(props.id);
-  }
-    
+  
+     
   return (
     <Card className={classes.root}>
           <CardMedia
             className={classes.media}
-            image={props.imageUrl}
+            image={product.imageUrl}
           />
           <CardContent className={classes.media}>
                 <Typography gutterBottom variant="h5" component="h2">
-                  {props.title}
+                  {product.title}
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
-                  {props.description}
+                  {product.description}
                 </Typography>
           </CardContent>
           <CardHeader 
-                  Style='Height:100'
+                  Style='height:100'
                   avatar={
                     <Typography variant="body2" color="textSecondary" component="p">
-                      {props.price.toFixed(2)}
+                      {product.price.toFixed(2)}
                     </Typography>
                   }
                   action={
-                    props.currentUser
+                    currentUser
                         .toLowerCase()
                         .includes('admin') ?
-                    <IconButton aria-label="Kill Item">
-                        <HighlightOffTwoToneIcon onClick={handleDel}/>
-                    </IconButton>
+                    
+                        <HighlightOffTwoToneIcon className={classes.hovIcon} onClick={() => delItem(product.id)}/>
+                    
                     :
                     null
                   }
@@ -66,7 +69,11 @@ const mapStateToProps = state =>({
   currentUser: state.user.currentUser
 })
 
-export default connect(mapStateToProps)(Product);
+const mapDispatchToState = dispatch =>({
+  delItem: item => dispatch(deleteItem(item))
+})
+
+export default connect(mapStateToProps,mapDispatchToState)(Product);
 
 
         

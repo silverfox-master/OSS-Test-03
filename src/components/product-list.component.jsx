@@ -17,8 +17,7 @@ const ProductList = props=> {
     const productComponents = props.products.map((product) => (
         <Product 
             key={'product-' + product.id}
-            onDelete={props.handleDelete}
-            {...product}
+            product={product}
         />
     ));
   

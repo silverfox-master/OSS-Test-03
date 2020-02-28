@@ -2,13 +2,13 @@ import React from 'react';
 import {Button} from '@material-ui/core'
 import {connect} from 'react-redux';
 import Paper from '@material-ui/core/Paper';
+import { deleteAll } from './../redux/items/items.actions'
 
-const Stats = props => {
+import { giveMeTollValue, giveMeMeanValue } from './../redux/stats/stats.utils'
 
-    const handleDel = () => {
-        props.onDeleteAll();
-    }
-
+const Stats = ({ currentQuantity, currentSum, currentMean, clearALL,currentUser }) => {
+    
+    
     return (
       <Paper  elevation={8}>
         <div Style='padding:30px 30px'>
@@ -17,18 +17,18 @@ const Stats = props => {
             </div>
             <hr width='100%'></hr>
             <div align='right'>
-                <p>Количество : {props.currentQuantity}</p>
-                <p>Суммарная цена : {props.currentSum}</p>
-                <p>Средняя цена : {props.currentMean}</p>
+                <p>Количество : {currentQuantity}</p>
+                <p>Суммарная цена : {currentSum}</p>
+                <p>Средняя цена : {currentMean}</p>
             </div>
             <hr width='100%'></hr>
             <div align='right'>
               {
-                props.currentUser
+                currentUser
                   .toLowerCase()
                   .includes('admin') ?
                 
-                  <Button  onClick={handleDel}>
+                  <Button  onClick={()=> clearALL()}>
                       Удалить все товары
                   </Button>:
                   <p></p>
@@ -39,15 +39,18 @@ const Stats = props => {
     );
 }
 
-const mapStateToProps = ({
-                      user:{currentUser},
-                      stat:{currentSum}, 
-                      stat:{currentMean},
-                      stat:{currentQuantity}
-                    }) =>({
+
+
+const mapStateToProps = ({items :{items}, user :{currentUser}}) => ({
   currentUser,
-  currentSum,
-  currentMean,
-  currentQuantity
+  items,
+  currentSum: giveMeTollValue(items),
+  currentQuantity: items.length,
+  currentMean: giveMeMeanValue(items)
 })
-export default connect(mapStateToProps)(Stats);
+
+const mapDispatchToProps = dispatch =>({
+  clearALL: () => dispatch(deleteAll())
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(Stats);
