@@ -18,8 +18,10 @@ const Stats = ({ currentQuantity, currentSum, currentMean, clearALL,currentUser 
             <hr width='100%'></hr>
             <div align='right'>
                 <p>Количество : {currentQuantity}</p>
-                <p>Суммарная цена : {currentSum}</p>
-                <p>Средняя цена : {currentMean}</p>
+                <p>Суммарная цена : </p>
+                <p>{currentSum}</p>
+                <p>Средняя цена : </p>
+                <p>{currentMean}</p>
             </div>
             <hr width='100%'></hr>
             <div align='right'>

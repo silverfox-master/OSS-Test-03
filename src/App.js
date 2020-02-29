@@ -8,13 +8,15 @@ import Grid from '@material-ui/core/Grid';
 import {connect} from 'react-redux';
 import { setCurrentUser } from './redux/user/user.actions'
 import { makeStyles, createStyles } from '@material-ui/core/styles';
+import './App.css'
 
 
 const useStyles = makeStyles(() => createStyles({
 container:{
+  minHeight: 1000,
   display: 'flex',
   flexDirection: 'row',
-  padding: '25px 50px 100px',
+  padding: '25px 0px 100px',
    
 }
 }));
@@ -26,9 +28,12 @@ const App = ({items, setUser}) => {
   
   
   return (
-    <div className={classes.container} >
+    <div  >
+      <Header/>
+      <div className={classes.container}>
+      
       <Grid container spacing={3}>
-        <Header/>
+        
         <Grid item xs={9}> 
           <Switch>
               <Route exact path='/' 
@@ -62,6 +67,7 @@ const App = ({items, setUser}) => {
           <Stats/>
         </Grid>
       </Grid>
+      </div>
     </div>
   );
 }
